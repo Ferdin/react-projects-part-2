@@ -27,7 +27,7 @@ function Form() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!description) return;
+    if (!description) return; // To ensure that nothing will get executed unless all the fields are filled from the input.
 
     const newItem = { description, quantity, packed: false, id: Date.now() };
     console.log(newItem);
