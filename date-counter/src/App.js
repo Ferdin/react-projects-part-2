@@ -21,19 +21,33 @@ function DateCounter() {
     setDateCounter((s) => s - step);
   }
 
+  function handleReset() {
+    setDateCounter(0);
+    setStep(1);
+  }
+
   const date = new Date();
   date.setDate(date.getDate() + dateCounter);
 
   return (
     <>
       <div>
-        <button onClick={() => setStep((c) => c - 1)}>-</button>
+        <input
+          type="range"
+          min="0"
+          max="10"
+          value={step}
+          onChange={(e) => setStep(Number(e.target.value))}
+        />
         <span>Steps: {step}</span>
-        <button onClick={() => setStep((c) => c + 1)}>+</button>
       </div>
       <div>
         <button onClick={prevDate}>-</button>
-        <span>Date</span>
+        <input
+          type="text"
+          value={dateCounter}
+          onChange={(e) => setDateCounter(Number(e.target.value))}
+        />
         <button onClick={nextDate}>+</button>
       </div>
       <div>
@@ -45,6 +59,11 @@ function DateCounter() {
             : `${Math.abs(dateCounter)} days ago was `}
         </span>
         <span>{date.toDateString()}</span>
+        {dateCounter !== 0 || step !== 1 ? (
+          <div>
+            <button onClick={handleReset}>Reset</button>
+          </div>
+        ) : null}
       </div>
     </>
   );
